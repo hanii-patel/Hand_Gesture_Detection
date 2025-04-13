@@ -30,31 +30,33 @@ This mini project performs **hand gesture recognition** using **MediaPipe** and 
    ```python
    !pip install mediapipe opencv-python
 2. Upload an Image:
+   ```python
    from google.colab import files
    uploaded = files.upload()
-3. Run Gesture Detection:
+4. Run Gesture Detection:
+   ```python
    import cv2
-import mediapipe as mp
-from matplotlib import pyplot as plt
+   import mediapipe as mp
+   from matplotlib import pyplot as plt
 
-mp_hands = mp.solutions.hands
-mp_drawing = mp.solutions.drawing_utils
+   mp_hands = mp.solutions.hands
+   mp_drawing = mp.solutions.drawing_utils
 
-image_path = list(uploaded.keys())[0]
-img = cv2.imread(image_path)
-img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+   image_path = list(uploaded.keys())[0]
+   img = cv2.imread(image_path)
+   img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-hands = mp_hands.Hands(static_image_mode=True)
-results = hands.process(img_rgb)
+   hands = mp_hands.Hands(static_image_mode=True)
+   results = hands.process(img_rgb)
 
-if results.multi_hand_landmarks:
+   if results.multi_hand_landmarks:
     for hand_landmarks in results.multi_hand_landmarks:
         mp_drawing.draw_landmarks(img_rgb, hand_landmarks, mp_hands.HAND_CONNECTIONS)
     plt.imshow(img_rgb)
     plt.axis('off')
     plt.title("Detected Hand")
     plt.show()
-else:
+   else:
     print("No hand detected.")
 
 
